@@ -7,13 +7,10 @@ import board
 import adafruit_hcsr04
 import digitalio
 import pwmio
-from adafruit_motor import servo
+import servo
 
 
 # variables
-seconds_to_microseconds_conversion_number = 1000000
-sonar_delays = [2 / seconds_to_microseconds_conversion_number, 10 / seconds_to_microseconds_conversion_number]
-delay_between_sonar_cheeks = 10
 distance = 0
 servo_delay = 0.5
 TOO_CLOSE = 50
@@ -30,9 +27,7 @@ my_servo = servo.Servo(pwm)
 # loop
 while True:
     # Sonar gets the distance form object
-    time.sleep(sonar_delays[0])
     distance = sonar.distance
-    time.sleep(sonar_delays[1])
 
     # Turns on LED if an object’s distance is equal to or closer then 20 cm from the sonar
     if distance < TOO_CLOSE:
