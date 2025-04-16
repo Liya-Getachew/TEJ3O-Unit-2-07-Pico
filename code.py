@@ -1,6 +1,9 @@
-# Created by: Liya G
-# Created on: 09/04/25
-# This program uses sonar to detect distance and then move a servo motor.
+"""
+Created by: Liya G
+Created on: 09/04/25
+
+This program uses sonar to detect distance and then move a servo motor.
+"""
 
 import time
 import board
