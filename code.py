@@ -1,6 +1,6 @@
 # Created by: Liya G
 # Created on: 09/04/25
-# This program uses sonar to detect distance and then move a servo motor
+# This program uses sonar to detect distance and then move a servo motor.
 
 import time
 import board
@@ -11,15 +11,12 @@ import servo
 
 
 # variables
-distance = 0
-servo_delay = 0.5
-TOO_CLOSE = 50
+SERVO_DELAY = 2
+TOO_CLOSE = 20
 
 # setup
 sonar = adafruit_hcsr04.HCSR04(trigger_pin = board.GP15, echo_pin = board.GP14)
-
-# create a PWMOut object on Pin GP12.
-pwm = pwmio.PWMOut(board.GP12 , duty_cycle=2 ** 15, frequency=50)
+pwm = pwmio.PWMOut(board.GP12, duty_cycle=2 ** 15, frequency=50)
 
 # Create a servo object, my_servo.
 my_servo = servo.Servo(pwm)
@@ -29,12 +26,12 @@ while True:
     # Sonar gets the distance form object
     distance = sonar.distance
 
-    # Turns on LED if an object’s distance is equal to or closer then 20 cm from the sonar
+    print(f"Distance: {distance} cm")
+
+    # Turns servo 180 degrees if an object’s distance is equal to or closer then 20 cm from the sonar
     if distance < TOO_CLOSE:
-        for angle in range(0, 180, 5):  # 0 - 180 degrees, 5 degrees at a time.
-            my_servo.angle = angle
-            time.sleep(servo_delay)
+        my_servo.angle = 180
     else:
-        for angle in range(180, 0, -5): # 180 - 0 degrees, 5 degrees at a time.
-            my_servo.angle = angle
-            time.sleep(servo_delay)
+        my_servo.angle = 0
+    
+    time.sleep(SERVO_DELAY)
